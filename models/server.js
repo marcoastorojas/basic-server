@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const authRouter = require("../routes/authRoutes")
+const path = require("path")
 
 class Server {
 
@@ -16,13 +17,16 @@ class Server {
         })
     }
 
-    middlewares(){
+    middlewares() {
         this.app.use(express.static("public"))
         this.app.use(express.json())
         this.app.use(cors())
         this.routes()
+        this.app.get("*", (req, res) => {
+            res.sendFile(path.resolve(__dirname, "../public/index.html"))
+        })
     }
-    routes(){
+    routes() {
         this.app.use("/auth", authRouter)
     }
 
