@@ -4,6 +4,8 @@ const authRouter = require("../routes/authRoutes")
 const path = require("path")
 const dietRouter = require("../routes/dietRoutes")
 const { connectPostgres } = require("../config/db")
+const recipeRouter = require("../routes/recipeRouter")
+const morgan = require("morgan")
 
 class Server {
 
@@ -12,7 +14,7 @@ class Server {
         this.app = express()
         this.middlewares()
     }
-
+    
     async listen() {
         try {
             await connectPostgres
@@ -22,12 +24,13 @@ class Server {
         } catch (error) {
             console.log(error)
         }
-
+        
     }
-
+    
     middlewares() {
         this.app.use(express.static("public"))
         this.app.use(express.json())
+        this.app.use(morgan('dev'));
         this.app.use(cors())
         this.routes()
         this.app.get("*", (req, res) => {
@@ -37,6 +40,7 @@ class Server {
     routes() {
         this.app.use("/auth", authRouter)
         this.app.use("/diet", dietRouter)
+        this.app.use("/recipe", recipeRouter)
     }
 
 }

@@ -11,22 +11,22 @@ const getAlldiets = (req = request, res = response) => {
 }
 
 const getDietId = (req = request, res = response) => {
-    // const { id } = req.params
-    // Diet.findByPk(id, {
-    //     include: [{ model: Recipe, include:[{model:Diet}] }]
-    // })
-    //     .then(dieta => res.status(200).json(dieta))
-    //     .catch(error => res.status(400).json({ error }))
+    const { id } = req.params
+    Diet.findByPk(id, {
+        include: [{ model: Recipe, include:[{model:Diet}] }]
+    })
+        .then(dieta => res.status(200).json(dieta))
+        .catch(error => res.status(400).json({ error }))
 }
 
 const postDieta = async (req = request, res = response) => {
-    // try {
-    //     const newDiet = await Diet.create(req.body)
-    //     res.status(201).json(newDiet)
+    try {
+        const newDiet = await Diet.create(req.body)
+        res.status(201).json(newDiet)
 
-    // } catch (error) {
-    //     res.status(500).json({ errors: { error: error.message } })
-    // }
+    } catch (error) {
+        res.status(500).json({ errors: { error: error.message } })
+    }
 }
 
 
