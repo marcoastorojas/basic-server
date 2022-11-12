@@ -2,6 +2,8 @@ const express = require("express")
 const cors = require("cors")
 const authRouter = require("../routes/authRoutes")
 const path = require("path")
+const dietRouter = require("../routes/dietRoutes")
+const { connectPostgres } = require("../config/db")
 
 class Server {
 
@@ -11,10 +13,16 @@ class Server {
         this.middlewares()
     }
 
-    listen() {
-        this.app.listen(this.PORT, () => {
-            console.log(`servidor corriendo en el puerto ${this.PORT}`)
-        })
+    async listen() {
+        try {
+            await connectPostgres
+            this.app.listen(this.PORT, () => {
+                console.log(`servidor corriendo en el puerto ${this.PORT}`)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     middlewares() {
@@ -28,6 +36,7 @@ class Server {
     }
     routes() {
         this.app.use("/auth", authRouter)
+        this.app.use("/diet", dietRouter)
     }
 
 }
