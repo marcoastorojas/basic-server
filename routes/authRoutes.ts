@@ -1,4 +1,6 @@
-const { Router } = require("express")
+import { Router } from "express"
+
+
 const authRouter = Router()
 
 
@@ -11,4 +13,5 @@ authRouter.post("/new",(_req,res)=>{
 authRouter.get("/renew",(_req,res)=>{
     res.send("renovar token")
 })
-module.exports = authRouter
+
+export default authRouter;

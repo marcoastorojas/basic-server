@@ -2,11 +2,11 @@ FROM node:18
 
 WORKDIR /app
 
-COPY . .
+COPY package*.json /app
+COPY ./dist /app/dist
 
 RUN npm install
-RUN npm install -g nodemon
 
-EXPOSE 4200
+EXPOSE 3000
 
-CMD ["npm","run","dev"]
+CMD ["npm","start"]
