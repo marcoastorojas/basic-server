@@ -34,6 +34,7 @@ export default class Server {
         this.routes()
     }
     routes() {
+        this.app.get("/",(_req,res)=>{res.json("hola mundo")})
         const userController = new UserControllerFactory().create()
         this.app.use("/user", userController.router);
     }
