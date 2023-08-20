@@ -1,15 +1,12 @@
 import Response from "../entity/Response";
-export interface ResponseOnly{
+interface BaseResponse <T>{
     response:Response;
+    data:T
 }
 
-export interface ResponseWithObject<Object>{
-    response:Response;
-    object: Object;
+export interface SingleObjectResponse<T> extends BaseResponse<T>{
 }
 
 
-export interface ResponseWithObjects<Object>{
-    response:Response;
-    objects: Object[];
+export interface ObjectListResponse<T> extends BaseResponse<T[]>{
 }

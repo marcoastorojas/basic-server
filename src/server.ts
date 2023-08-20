@@ -1,17 +1,15 @@
 import  express  from "express";
 const cors = require("cors")
-import UserController from "./features/userManagement/infrastructure/controllers/UserController";
-import userService  from "./features/userManagement/application/userService";
-import UserRepository from "./features/userManagement/infrastructure/repository/UserRepository";
 import UserControllerFactory from "./core/infrastructure/factory/controllerFactory/UserControllerFactory";
 const morgan = require("morgan")
+const dotenv = require("dotenv")
 
 export default class Server {
     public PORT:number;
     private app:express.Application;
 
     constructor() {
-        this.PORT = 3000
+        this.PORT = Number(process.env.PORT) || 3000;
         this.app = express()
         this.middlewares()
     }

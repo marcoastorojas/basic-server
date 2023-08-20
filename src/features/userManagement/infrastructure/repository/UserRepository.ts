@@ -1,5 +1,5 @@
 import Response from "../../../../core/domain/entity/Response";
-import { ResponseWithObjects, ResponseWithObject, ResponseOnly } from "../../../../core/domain/repository/ResponseTypes";
+import {  ObjectListResponse, SingleObjectResponse } from "../../../../core/domain/repository/ResponseTypes";
 import { User } from "../../domain/entity/User";
 import UserRepositoryInterface from "../../domain/repository/UserRepositoryInterface";
 
@@ -14,29 +14,29 @@ export default class UserRepository implements UserRepositoryInterface{
     ]
     
     
-    async getAllUsers(): Promise<ResponseWithObjects<User> >{
+    async getAllUsers(): Promise<ObjectListResponse<User> >{
         try {
             const usuarios = this.users;
             if(usuarios.length){
-                return {response:new Response("todo llevo bien",200), objects: usuarios}
+                return {response:new Response("todo llevo bien",200), data: usuarios}
             }
             
-            return {response:new Response("No existe usuarios",400), objects: usuarios}
+            return {response:new Response("No existe usuarios",400), data: usuarios}
         } catch (error) {
-            return {response:new Response((error as Error).message,500), objects: []}
+            return {response:new Response((error as Error).message,500), data: []}
         }
     }
     
-    create(newOne: User): Promise<ResponseWithObject<User>> {
+    create(newOne: User): Promise<SingleObjectResponse<User>> {
         throw new Error("Method not implemented.");
     }
-    getOne(id: String): Promise<ResponseWithObject<User>> {
+    getOne(id: String): Promise<SingleObjectResponse<User>> {
         throw new Error("Method not implemented.");
     }
-    delete(id: String): Promise<ResponseOnly> {
+    delete(id: String): Promise<SingleObjectResponse<null>> {
         throw new Error("Method not implemented.");
     }
-    modify(current: User): Promise<ResponseWithObject<User>> {
+    modify(current: User): Promise<SingleObjectResponse<User>> {
         throw new Error("Method not implemented.");
     }
 
